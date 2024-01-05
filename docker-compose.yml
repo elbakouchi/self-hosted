@@ -214,8 +214,7 @@ services:
     build:
       context: ./clickhouse
       args:
-        BASE_IMAGE: "${CLICKHOUSE_IMAGE:-}"
-    ulimits:
+        BASE_IMAGE: clickhouse/clickhouse-server
       nofile:
         soft: 262144
         hard: 262144
