@@ -69,9 +69,9 @@ x-sentry-defaults: &sentry_defaults
     GRPC_DEFAULT_SSL_ROOTS_FILE_PATH_ENV_VAR: *ca_bundle
     # Leaving the value empty to just pass whatever is set
     # on the host system (or in the .env file)
-    SENTRY_EVENT_RETENTION_DAYS:
-    SENTRY_MAIL_HOST:
-    SENTRY_MAX_EXTERNAL_SOURCEMAP_SIZE:
+    SENTRY_EVENT_RETENTION_DAYS: 90
+    SENTRY_MAIL_HOST: 1minscript.com
+    SENTRY_MAX_EXTERNAL_SOURCEMAP_SIZE: -1M
     # Set this value if you plan on using the Suggested Fix Feature
     OPENAI_API_KEY:
   volumes:
@@ -98,7 +98,7 @@ x-snuba-defaults: &snuba_defaults
     UWSGI_DISABLE_LOGGING: "true"
     # Leaving the value empty to just pass whatever is set
     # on the host system (or in the .env file)
-    SENTRY_EVENT_RETENTION_DAYS:
+    SENTRY_EVENT_RETENTION_DAYS: 90
 services:
   smtp:
     <<: *restart_policy
