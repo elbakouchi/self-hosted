@@ -187,6 +187,9 @@ services:
       <<: *healthcheck_defaults
       test:
         ["CMD-SHELL", 'echo "ruok" | nc -w 2 localhost 2181 | grep imok']
+      timeout: 10s
+      interval: 30s
+      retries: 10  
   kafka:
     <<: *restart_policy
     depends_on:
