@@ -304,7 +304,7 @@ services:
     command: consumer --storage functions_raw --auto-offset-reset=latest --max-batch-time-ms 1000 --no-strict-offset-reset
   symbolicator:
     <<: *restart_policy
-    image: "$SYMBOLICATOR_IMAGE"
+    image: getsentry/symbolicator:nightly
     volumes:
       - "sentry-symbolicator:/data"
       - type: bind
@@ -318,7 +318,7 @@ services:
     build:
       context: ./cron
       args:
-        BASE_IMAGE: "$SYMBOLICATOR_IMAGE"
+        BASE_IMAGE: getsentry/symbolicator:nightly
     command: '"55 23 * * * gosu symbolicator symbolicator cleanup"'
     volumes:
       - "sentry-symbolicator:/data"
@@ -402,7 +402,7 @@ services:
   nginx:
     <<: *restart_policy
     ports:
-      - "$SENTRY_BIND:80/tcp"
+      - "8467:80/tcp"
     image: "nginx:1.25.2-alpine"
     volumes:
       - type: bind
@@ -415,7 +415,7 @@ services:
       - relay
   relay:
     <<: *restart_policy
-    image: "$RELAY_IMAGE"
+    image: getsentry/relay:nightly
     volumes:
       - type: bind
         read_only: true
@@ -434,7 +434,7 @@ services:
         <<: *depends_on-healthy
   vroom:
     <<: *restart_policy
-    image: "$VROOM_IMAGE"
+    image: getsentry/vroom:nightly
     environment:
       SENTRY_KAFKA_BROKERS_PROFILING: "kafka:9092"
       SENTRY_KAFKA_BROKERS_OCCURRENCES: "kafka:9092"
@@ -451,13 +451,13 @@ services:
     build:
       context: ./cron
       args:
-        BASE_IMAGE: "$VROOM_IMAGE"
+        BASE_IMAGE: getsentry/vroom:nightly
     entrypoint: "/entrypoint.sh"
     environment:
       # Leaving the value empty to just pass whatever is set
       # on the host system (or in the .env file)
       SENTRY_EVENT_RETENTION_DAYS:
-    command: '"0 0 * * * find /var/lib/sentry-profiles -type f -mtime +$SENTRY_EVENT_RETENTION_DAYS -delete"'
+    command: '"0 0 * * * find /var/lib/sentry-profiles -type f -mtime +90 -delete"'
     volumes:
       - sentry-vroom:/var/lib/sentry-profiles
 
