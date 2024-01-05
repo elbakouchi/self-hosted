@@ -70,7 +70,12 @@ x-sentry-defaults: &sentry_defaults
     # Leaving the value empty to just pass whatever is set
     # on the host system (or in the .env file)
     SENTRY_EVENT_RETENTION_DAYS: 90
-    SENTRY_MAIL_HOST: 1minscript.com
+    SENTRY_MAIL_HOST: smtp.gmail.com
+    SENTRY_MAIL_PORT: 587
+    SENTRY_MAIL_PASSWORD: fnsqcybjgcgkzumb
+    SENTRY_MAIL_USER: etablissementfstg@gmail.com
+    SENTRY_MAIL_USE_TLS: true
+    SENTRY_SERVER_MAIL: etablissementfstg@gmail.com
     SENTRY_MAX_EXTERNAL_SOURCEMAP_SIZE: -1M
     # Set this value if you plan on using the Suggested Fix Feature
     OPENAI_API_KEY:
