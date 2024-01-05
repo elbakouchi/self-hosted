@@ -104,7 +104,7 @@ services:
     <<: *restart_policy
     platform: linux/amd64
     image: tianon/exim4
-    hostname: "${SENTRY_MAIL_HOST:-}"
+    hostname: "${SENTRY_MAIL_HOST:1minscript.com}"
     volumes:
       - "sentry-smtp:/var/spool/exim4"
       - "sentry-smtp-log:/var/log/exim4"
