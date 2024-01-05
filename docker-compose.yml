@@ -118,6 +118,9 @@ services:
     image: "memcached:1.6.21-alpine"
     command: ["-I", "${SENTRY_MAX_EXTERNAL_SOURCEMAP_SIZE:-1M}"]
     healthcheck:
+      timeout: 10s
+      interval: 30s
+      retries: 10
       <<: *healthcheck_defaults
       # From: https://stackoverflow.com/a/31877626/5155484
       test: echo stats | nc 127.0.0.1 11211
@@ -127,6 +130,9 @@ services:
     healthcheck:
       <<: *healthcheck_defaults
       test: redis-cli ping
+      timeout: 10s
+      interval: 30s
+      retries: 10
     volumes:
       - "sentry-redis:/data"
     ulimits:
