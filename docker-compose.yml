@@ -243,8 +243,8 @@ services:
           # https://github.com/getsentry/self-hosted/issues/1537
           "http_proxy='' wget -nv -t1 --spider 'http://localhost:8123/' || exit 1",
         ]
-      interval: 10s
-      timeout: 10s
+      interval: 10
+      timeout: 10
       retries: 30
   geoipupdate:
     image: "ghcr.io/maxmind/geoipupdate:v6.0.0"
